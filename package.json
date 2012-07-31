@@ -1,9 +1,15 @@
 {
     "name": "clientmodules",
     "version": "0.0.1",
-    "author": "Henrik Joreteg",
+    "author": "Henrik Joreteg <henrik@andyet.net>",
+    "description": "A small util for using npm to install clientside packages.",
     "dependencies": {
         "async": "",
         "colors": ""
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HenrikJoreteg/clientmodules.git"
+    },
+    "keywords": ["cli", "browser", "commonjs"]
 }

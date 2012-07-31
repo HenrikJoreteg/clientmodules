@@ -25,7 +25,7 @@ It shamelessly extends `package.json` to also list which of the installed depend
 
 Altogether is looks somethign like this:
 
-```json
+```
   ...
   "dependencies": {
     "clientmodules": "",
@@ -39,3 +39,7 @@ Altogether is looks somethign like this:
 ```
 
 Bingo! It'll now copy those into a `clientmodules` directory at the root of your project when you `npm install .` for your project.
+
+## Licence
+
+MIT
