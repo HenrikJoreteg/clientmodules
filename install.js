@@ -2,10 +2,10 @@ var fs = require('fs'),
     path = require('path'),
     existsSync = fs.existsSync || path.existsSync,
     async = require('async'),
-    pkg = require('package.json'),
+    pkg = JSON.parse(fs.readFileSync('package.json')),
     clientModules = pkg.clientmodules,
     colors = require('colors'),
-    copied = [];
+    copied = []
 
 function pad(string, target) {
     return string + (new Array(target - string.length).join(' '));
