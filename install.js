@@ -5,7 +5,7 @@ var fs = require('fs'),
     pkg = JSON.parse(fs.readFileSync('package.json')),
     clientModules = pkg.clientmodules,
     colors = require('colors'),
-    copied = []
+    copied = [];
 
 function pad(string, target) {
     return string + (new Array(target - string.length).join(' '));
