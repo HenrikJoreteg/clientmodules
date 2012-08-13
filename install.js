@@ -1,9 +1,11 @@
 var fs = require('fs'),
+    path = require('path'),
+    existsSync = fs.existsSync || path.existsSync,
     async = require('async'),
     pkg = JSON.parse(fs.readFileSync('package.json')),
     clientModules = pkg.clientmodules,
     colors = require('colors'),
-    copied = [];
+    copied = []
 
 function pad(string, target) {
     return string + (new Array(target - string.length).join(' '));
@@ -20,11 +22,11 @@ if (clientModules && clientModules.forEach) {
                 path = 'node_modules/' + item + '/',
                 mainFile = function () {
                     var res;
-                    if (fs.existsSync(path + fileName)) {
+                    if (existsSync(path + fileName)) {
                         return path + fileName;
-                    } else if (fs.existsSync(path + 'lib/' + fileName)) {
+                    } else if (existsSync(path + 'lib/' + fileName)) {
                         return path + 'lib/' + fileName;
-                    } else if (fs.existsSync(path + 'build/' + fileName)) {
+                    } else if (existsSync(path + 'build/' + fileName)) {
                         return path + 'build/' + fileName;
                     } else {
                         return false;
