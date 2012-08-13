@@ -17,6 +17,7 @@ if (clientModules && clientModules.forEach) {
     } catch (e) {}
     async.forEach(clientModules, function (item, loopCb) {
         fs.readFile('node_modules/' + item + '/package.json', function (err, text) {
+            if (err) return loopCb(err);
             var parsed = JSON.parse(text),
                 fileName = item + '.js',
                 path = 'node_modules/' + item + '/',
