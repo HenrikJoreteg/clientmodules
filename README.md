@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/HenrikJoreteg/clientmodules.png)](http://travis-ci.org/HenrikJoreteg/clientmodules)
 # clientmodules 
 
 A simplistic util for using npm to install clientside packages.
