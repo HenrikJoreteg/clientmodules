@@ -5,6 +5,8 @@ var fs = require('fs'),
     pkg = JSON.parse(fs.readFileSync('package.json')),
     clientModules = pkg.clientmodules,
     colors = require('colors'),
+    Columnizer = require('columnizer'),
+    table = new Columnizer,
     copied = [];
 
 function pad(string, target) {
@@ -43,16 +45,15 @@ if (clientModules && clientModules.forEach) {
             readStream = fs.createReadStream(mainFile);
             
             writeStream.once('close', function () {
-
-                copied.push(pad(item + '.js', 15).green + (" \t ./" + mainFile));
+                table.row('     ' + (item + '.js').green, "./" + mainFile);
                 loopCb()
             });
             readStream.pipe(writeStream);
         });
     }, function (err) {
-        var sep = '\n    ';
         if (!err) {
-            console.log('clientmodules copied the following files into the `./clientmodules` directory:' + sep + copied.join(sep));
+            console.log('clientmodules copied the following files into the `./clientmodules` directory:');
+            table.print(5);
             process.exit(0);
         } else {
             console.log('Oops... something didn\'t work');
