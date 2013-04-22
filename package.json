@@ -5,7 +5,8 @@
     "description": "A small util for using npm to install clientside packages.",
     "dependencies": {
         "async": "",
-        "colors": ""
+        "colors": "",
+        "columnizer": ""
     },
     "repository": {
         "type": "git",

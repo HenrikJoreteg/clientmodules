@@ -2,14 +2,17 @@ var fs = require('fs'),
     path = require('path'),
     existsSync = fs.existsSync || path.existsSync,
     async = require('async'),
+    colors = require('colors'),
+    Columnizer = require('columnizer'),
+    table = new Columnizer;
     pkg = JSON.parse(fs.readFileSync('package.json')),
     clientModules = pkg.clientmodules,
-    colors = require('colors'),
     copied = [],
     directory = pkg.clientmodulesDir || 'clientmodules';
 
 function pad(string, target) {
-    return string + (new Array(target - string.length).join(' '));
+    console.log('target - string.length', target - string.length);
+    return string + (new Array((target - string.length) < 0 ? 0 : target - string.length).join(' '));
 }
 
 if (clientModules && clientModules.forEach) {
@@ -44,16 +47,17 @@ if (clientModules && clientModules.forEach) {
             readStream = fs.createReadStream(mainFile);
 
             writeStream.once('close', function () {
-
-                copied.push(pad(item + '.js', 15).green + (" \t ./" + mainFile));
+                table.row('  ', (item + '.js').green, mainFile);
                 loopCb()
             });
+
             readStream.pipe(writeStream);
         });
     }, function (err) {
         var sep = '\n    ';
         if (!err) {
-            console.log('clientmodules copied the following files into the `' + directory + '` directory:' + sep + copied.join(sep));
+            console.log('clientmodules copied the following files into the ' + directory.green + ' directory:');
+            table.print();
             process.exit(0);
         } else {
             console.log('Oops... something didn\'t work');
