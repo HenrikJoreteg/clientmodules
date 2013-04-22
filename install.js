@@ -5,7 +5,8 @@ var fs = require('fs'),
     pkg = JSON.parse(fs.readFileSync('package.json')),
     clientModules = pkg.clientmodules,
     colors = require('colors'),
-    copied = [];
+    copied = [],
+    directory = pkg.clientmodulesDir || 'clientmodules';
 
 function pad(string, target) {
     return string + (new Array(target - string.length).join(' '));
@@ -13,7 +14,7 @@ function pad(string, target) {
 
 if (clientModules && clientModules.forEach) {
     try {
-        fs.mkdirSync('clientmodules');
+        fs.mkdirSync(directory);
     } catch (e) {}
     async.forEach(clientModules, function (item, loopCb) {
         fs.readFile('node_modules/' + item + '/package.json', function (err, text) {
@@ -39,9 +40,9 @@ if (clientModules && clientModules.forEach) {
                 return;
             }
 
-            writeStream = fs.createWriteStream('clientmodules/' + item + '.js'),
+            writeStream = fs.createWriteStream(directory + '/' + item + '.js'),
             readStream = fs.createReadStream(mainFile);
-            
+
             writeStream.once('close', function () {
 
                 copied.push(pad(item + '.js', 15).green + (" \t ./" + mainFile));
@@ -52,7 +53,7 @@ if (clientModules && clientModules.forEach) {
     }, function (err) {
         var sep = '\n    ';
         if (!err) {
-            console.log('clientmodules copied the following files into the `./clientmodules` directory:' + sep + copied.join(sep));
+            console.log('clientmodules copied the following files into the `' + directory + '` directory:' + sep + copied.join(sep));
             process.exit(0);
         } else {
             console.log('Oops... something didn\'t work');

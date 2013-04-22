@@ -1,6 +1,6 @@
 {
     "name": "clientmodules",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Henrik Joreteg <henrik@andyet.net>",
     "description": "A small util for using npm to install clientside packages.",
     "dependencies": {
