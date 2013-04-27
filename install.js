@@ -60,6 +60,7 @@ if (clientModules && clientModules.forEach) {
             table.print();
             process.exit(0);
         } else {
+            console.error(err);
             console.log('Oops... something didn\'t work');
             process.exit(1);
         }
