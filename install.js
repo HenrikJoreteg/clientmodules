@@ -36,7 +36,19 @@ if (clientModules && clientModules.forEach) {
                     } else {
                         return false;
                     }
-                }();
+                }(),
+                dependencies = parsed.dependencies;
+
+            // simple dependencies check
+            if (dependencies && Object.keys(dependencies).length) {
+                // loop through dependencies to see if we have them
+                // in clientmodules (a simple version-free check is intentional)
+                for (var dep in dependencies) {
+                    if (clientModules.indexOf(dep) === -1) {
+                        console.log(('warning: ' + item + ' is depends on ' + dep + ' which isn\'t listed in clientmodules').yellow);
+                    }
+                }
+            }
 
             if (!mainFile) {
                 loopCb();
